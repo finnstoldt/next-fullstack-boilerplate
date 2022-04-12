@@ -46,3 +46,5 @@ jobs:
       #       monorepo-base-path: './packages'
       - name: Build
         run: yarn run build
+      - name: Build Docker image for Storefront
+        run: docker build ./apps/storefront/ --file Dockerfile --tag project/storefront:$(date +%s)
