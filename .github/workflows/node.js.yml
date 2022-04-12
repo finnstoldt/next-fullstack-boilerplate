@@ -59,4 +59,4 @@ jobs:
         with:
           context: ./apps/storefront
           push: true
-          tags: "next-fullstack-boilerplate/storefront:$(date +%s)"
+          tags: next-fullstack-boilerplate/storefront:latest
