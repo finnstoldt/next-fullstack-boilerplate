@@ -52,13 +52,12 @@ jobs:
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
-          username: finnstoldt
-          # ${{ github.actor }}
-          password: ${{ secrets.GHCR_PAT }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
           context: ./apps/storefront
           push: true
-          tags: finnstoldt/next-fullstack-boilerplate-storefront:latest
-          github-token: ${{ github.token }}
+          tags: ghcr.io/${{ github.repository_owner }}/next-fullstack-boilerplate-storefront:latest
+          # finnstoldt/next-fullstack-boilerplate-storefront:latest
