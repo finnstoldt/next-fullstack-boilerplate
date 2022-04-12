@@ -5,50 +5,44 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
   workflow_dispatch:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [12.x, 14.x, 16.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'yarn'
-    - name: Restore node_modules cache
-      uses: actions/cache@v2.1.5
-      with:
-          path: '**/node_modules'
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+          cache: "yarn"
+      - name: Restore node_modules cache
+        uses: actions/cache@v2.1.5
+        with:
+          path: "**/node_modules"
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-    - name: Turbo Cache
-      id: turbo-cache
-      uses: actions/cache@v2
-      with:
+      - name: Turbo Cache
+        id: turbo-cache
+        uses: actions/cache@v2
+        with:
           path: .turbo
           key: turbo-${{ github.job }}-${{ github.ref_name }}-${{ github.sha }}
           restore-keys: |
-              turbo-${{ github.job }}-${{ github.ref_name }}-
-    - name: Install packages
-      run: yarn --frozen-lockfile
-    # - name: All tests
-    #   run: yarn test-coverage --cache-dir=".turbo"
-    # - name: Add coverage comment
-    #   continue-on-error: true
-    #   uses: eeshdarthvader/code-coverage-assistant@master
-    #   with:
-    #       github-token: ${{ secrets.GITHUB_TOKEN }}
-    #       monorepo-base-path: './packages'
-    - name: Build
-      run: yarn run build
+            turbo-${{ github.job }}-${{ github.ref_name }}-
+      - name: Install packages
+        run: yarn --frozen-lockfile
+      # - name: All tests
+      #   run: yarn test-coverage --cache-dir=".turbo"
+      # - name: Add coverage comment
+      #   continue-on-error: true
+      #   uses: eeshdarthvader/code-coverage-assistant@master
+      #   with:
+      #       github-token: ${{ secrets.GITHUB_TOKEN }}
+      #       monorepo-base-path: './packages'
+      - name: Build
+        run: yarn run build
