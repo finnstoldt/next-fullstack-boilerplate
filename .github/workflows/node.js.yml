@@ -44,7 +44,19 @@ jobs:
       #   with:
       #       github-token: ${{ secrets.GITHUB_TOKEN }}
       #       monorepo-base-path: './packages'
-      - name: Build
+      - name: Build packages
         run: yarn run build
-      - name: Build Docker image for Storefront
-        run: docker build ./apps/storefront/ --tag project/storefront:$(date +%s)
+      # - name: Build Docker image for Storefront
+      #   run: docker build ./apps/storefront/ --tag project/storefront:$(date +%s)
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: "{{defaultContext}}:apps/storefront"
+          push: true
+          tags: next-fullstack-boilerplate/storefront:$(date +%s)
