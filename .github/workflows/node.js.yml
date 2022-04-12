@@ -60,3 +60,4 @@ jobs:
           context: ./apps/storefront
           push: true
           tags: finnstoldt/next-fullstack-boilerplate-storefront:latest
+          github-token: ${{ github.token }}
