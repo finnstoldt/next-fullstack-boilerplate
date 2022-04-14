@@ -1,12 +1,10 @@
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: Node.js CI
+name: Node.js CD
 
 on:
   push:
-    branches: [master]
-  pull_request:
     branches: [master]
   workflow_dispatch:
 
@@ -54,10 +52,9 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build and push
+      - name: Build and push storefront Docker image
         uses: docker/build-push-action@v2
         with:
           context: ./apps/storefront
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/next-fullstack-boilerplate/storefront:latest
-          # finnstoldt/next-fullstack-boilerplate-storefront:latest
+          tags: ghcr.io/${{ github.repository }}/storefront:latest
