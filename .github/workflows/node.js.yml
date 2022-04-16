@@ -60,6 +60,13 @@ jobs:
           context: ./apps/storefront
           push: true
           tags: ghcr.io/${{ github.repository }}/storefront:latest
+
+  webhook:
+    runs-on: ubuntu-latest
+
+    needs: build
+
+    steps:
       - name: Invoke deployment hook
         uses: distributhor/workflow-webhook@v2
         env:
