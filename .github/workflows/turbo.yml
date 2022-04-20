@@ -14,7 +14,10 @@ jobs:
         package: ["storefront", "api"]
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v1
         with:
@@ -27,6 +30,8 @@ jobs:
           context: .
           push: true
           tags: ghcr.io/${{ github.repository }}/${{ matrix.package }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
           build-args: |
             STOREFRONT_BASE_PATH=${{ secrets.STOREFRONT_BASE_PATH }}
             APP_SCOPE=${{ matrix.package }}
