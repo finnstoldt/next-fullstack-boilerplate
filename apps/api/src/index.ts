@@ -4,6 +4,10 @@ import { log } from "logger";
 const port = process.env.PORT || 3000;
 const server = createServer();
 
+server.get("/", function (req, res) {
+  res.send("Hello World!");
+});
+
 server.listen(port, () => {
   log(`api running on ${port}`);
 });
