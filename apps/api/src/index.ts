@@ -1,5 +1,5 @@
 import { log } from "logger";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, User } from "@prisma/client";
 import { json, urlencoded } from "body-parser";
 import express from "express";
 import morgan from "morgan";
@@ -48,7 +48,7 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     users: async () =>
-      (await prisma.user.findMany()).map((user) => ({
+      (await prisma.user.findMany()).map((user: User) => ({
         id: user.id,
         createdAt: user.createdAt.toISOString(),
         email: user.email,
