@@ -5,9 +5,12 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import http from "http";
+import { readFileSync } from "fs";
 
 import { ApolloServer } from "apollo-server-express";
-import { ApolloServerPluginDrainHttpServer, gql } from "apollo-server-core";
+import { ApolloServerPluginDrainHttpServer } from "apollo-server-core";
+
+import { Resolvers } from "graphql-codegen";
 
 const port = process.env.PORT || 3000;
 
@@ -32,20 +35,9 @@ app
 
 const httpServer = http.createServer(app);
 
-const typeDefs = gql`
-  type User {
-    id: Int
-    createdAt: String
-    email: String
-    name: String
-    role: String
-  }
-  type Query {
-    users: [User]
-  }
-`;
+const typeDefs = readFileSync("./schema.graphql", "utf8");
 
-const resolvers = {
+const resolvers: Resolvers = {
   Query: {
     users: async () =>
       (await prisma.user.findMany()).map((user: User) => ({

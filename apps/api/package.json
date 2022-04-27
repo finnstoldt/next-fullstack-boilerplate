@@ -10,7 +10,7 @@
     "db:seed": "yarn prisma db seed",
     "start": "yarn db:migrate && yarn prisma db seed && node -r esbuild-register ./src/index.ts",
     "build": "yarn db:generate && tsc",
-    "lint": "tsc --noEmit && TIMING=1 eslint src --fix",
+    "lint": "tsc --noEmit && cross-env TIMING=1 eslint src --fix",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "devDependencies": {
@@ -21,6 +21,7 @@
     "@types/morgan": "^1.9.2",
     "@types/node": "^15.12.2",
     "@types/supertest": "^2.0.11",
+    "cross-env": "^7.0.3",
     "esbuild-register": "^2.5.0",
     "eslint": "^7.32.0",
     "jest": "^26.6.3",
@@ -42,6 +43,7 @@
     "cors": "^2.8.5",
     "express": "^4.18.0",
     "graphql": "^16.4.0",
+    "graphql-codegen": "*",
     "logger": "*",
     "morgan": "^1.10.0"
   },

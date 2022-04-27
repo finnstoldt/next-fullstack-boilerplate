@@ -1,0 +1,32 @@
+{
+  "name": "graphql-codegen",
+  "version": "0.0.0",
+  "main": "./dist/graphql.js",
+  "types": "./dist/graphql.d.ts",
+  "source": "./src/graphql.ts",
+  "private": true,
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "test": "jest",
+    "dev": "tsc -w",
+    "build": "tsc",
+    "lint": "cross-env TIMING=1 eslint src --fix",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.22",
+    "eslint": "^7.32.0",
+    "jest": "^26.6.3",
+    "scripts": "*",
+    "tsconfig": "*",
+    "typescript": "^4.5.3"
+  },
+  "jest": {
+    "preset": "scripts/jest/node"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.6.0"
+  }
+}
