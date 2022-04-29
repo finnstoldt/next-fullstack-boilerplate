@@ -29,12 +29,18 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ github.repository }}/${{ matrix.package }}:latest
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          build-args: |
-            STOREFRONT_BASE_PATH=${{ secrets.STOREFRONT_BASE_PATH }}
-            APP_SCOPE=${{ matrix.package }}
+          tags: |
+            ghcr.io/${{ github.repository }}/${{ matrix.package }}:latest
+            ghcr.io/${{ github.repository }}/${{ matrix.package }}:${{ github.sha }}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+      - # Temp fix
+        # https://github.com/docker/build-push-action/issues/252
+        # https://github.com/moby/buildkit/issues/1896
+        name: Move cache
+        run: |
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
 
   webhook:
     runs-on: ubuntu-latest
