@@ -36,6 +36,8 @@
     "preset": "scripts/jest/node"
   },
   "dependencies": {
+    "@graphql-tools/graphql-file-loader": "^7.3.11",
+    "@graphql-tools/load": "^7.5.10",
     "@prisma/client": "^3.12.0",
     "apollo-server-core": "^3.6.7",
     "apollo-server-express": "^3.6.7",

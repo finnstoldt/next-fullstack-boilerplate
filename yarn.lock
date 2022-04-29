@@ -1018,7 +1018,7 @@
     sync-fetch "0.3.1"
     tslib "~2.3.0"
 
-"@graphql-tools/graphql-file-loader@^7.0.5", "@graphql-tools/graphql-file-loader@^7.3.7":
+"@graphql-tools/graphql-file-loader@^7.0.5", "@graphql-tools/graphql-file-loader@^7.3.11", "@graphql-tools/graphql-file-loader@^7.3.7":
   version "7.3.11"
   resolved "https://registry.yarnpkg.com/@graphql-tools/graphql-file-loader/-/graphql-file-loader-7.3.11.tgz#3acc3fffdba5e1d47750ea693577c2388e6cf22b"
   integrity sha512-3RMTfBN0VYSJH+5he9DxW8nGSn5p2+dNN2O2H88QSSwGorkONmKBdmf+9+JTzrEDvPObOzBjIuSD8wCnXlNaQA==
@@ -1059,7 +1059,7 @@
     tslib "~2.3.0"
     unixify "^1.0.0"
 
-"@graphql-tools/load@^7.3.0", "@graphql-tools/load@^7.5.5":
+"@graphql-tools/load@^7.3.0", "@graphql-tools/load@^7.5.10", "@graphql-tools/load@^7.5.5":
   version "7.5.10"
   resolved "https://registry.yarnpkg.com/@graphql-tools/load/-/load-7.5.10.tgz#6e53dd62ec081b3a2966ab9d93e8b991f06501b3"
   integrity sha512-I9b9Md1DdB7Du//+x8CtBAKUW21jyuENCPssvlBjHZjvmx5cIGrTftqwGzuDBgR0Zm72tkmat/FTu6/SQPiyeQ==
