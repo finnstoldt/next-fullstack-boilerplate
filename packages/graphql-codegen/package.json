@@ -27,6 +27,6 @@
     "preset": "scripts/jest/node"
   },
   "dependencies": {
-    "@apollo/client": "^3.6.0"
+    "@apollo/client": "^3.6.2"
   }
 }

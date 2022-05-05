@@ -16,8 +16,8 @@
     "@mui/material": "^5.6.4",
     "graphql": "^16.4.0",
     "graphql-codegen": "*",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
     "ui": "*"
   },
   "devDependencies": {
