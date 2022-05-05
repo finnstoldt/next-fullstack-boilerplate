@@ -1,6 +1,6 @@
 overwrite: true
 schema: "./**/src/**/schema.graphql"
-# documents: "./**/src/**/*.graphql"
+documents: "./**/src/**/*.graphql"
 generates:
   packages/graphql-codegen/src/graphql.ts:
     plugins:
@@ -8,6 +8,9 @@ generates:
       - "typescript-operations"
       - "typescript-resolvers"
       - "typescript-react-apollo"
+      #- "typed-document-node"
+    config:
+      withHooks: true
   ./graphql.schema.json:
     plugins:
       - "introspection"
