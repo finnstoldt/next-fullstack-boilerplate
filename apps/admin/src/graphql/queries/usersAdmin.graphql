@@ -1,0 +1,9 @@
+query UsersAdmin {
+  users {
+    id
+    createdAt
+    email
+    name
+    role
+  }
+}

@@ -1,42 +1,38 @@
+import { Card, CardContent, CardHeader, Grid, Typography } from "@mui/material";
 import * as React from "react";
-import logo from "./logo.svg";
-import "./App.css";
-import { CounterButton } from "ui";
+import { useUsersAdminQuery } from "graphql-codegen";
 
 function App() {
+  const { data } = useUsersAdminQuery();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1>Turborepo Admin</h1>
-        <p>This app is powered by Vite.</p>
-        <p>
-          <CounterButton />
-        </p>
-        <p>
-          Edit <code>App.tsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {" | "}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
-    </div>
+    <Grid container spacing={3}>
+      {data?.users?.map((user) => (
+        <Grid item>
+          <Card>
+            <CardHeader
+              title={user?.name}
+              subheader={
+                <Typography variant="caption">{`ID: ${user?.id}`}</Typography>
+              }
+            ></CardHeader>
+            <CardContent>
+              <Grid container direction="column" gap={2}>
+                <Grid item>
+                  <Typography variant="body2">{user?.createdAt}</Typography>
+                </Grid>
+                <Grid item>
+                  <Typography variant="body2">{user?.email}</Typography>
+                </Grid>
+                <Grid item>
+                  <Typography variant="body2">{user?.role}</Typography>
+                </Grid>
+              </Grid>
+            </CardContent>
+          </Card>
+        </Grid>
+      ))}
+    </Grid>
   );
 }
 

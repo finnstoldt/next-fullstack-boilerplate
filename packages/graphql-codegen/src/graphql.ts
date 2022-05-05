@@ -30,6 +30,11 @@ export type User = {
   role?: Maybe<Scalars['String']>;
 };
 
+export type UsersAdminQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type UsersAdminQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'User', id: number, createdAt?: string | null, email?: string | null, name?: string | null, role?: string | null } | null> | null };
+
 export type UserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -140,6 +145,44 @@ export type Resolvers<ContextType = any> = {
 
 
 
+export const UsersAdminDocument = gql`
+    query UsersAdmin {
+  users {
+    id
+    createdAt
+    email
+    name
+    role
+  }
+}
+    `;
+
+/**
+ * __useUsersAdminQuery__
+ *
+ * To run a query within a React component, call `useUsersAdminQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUsersAdminQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUsersAdminQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useUsersAdminQuery(baseOptions?: Apollo.QueryHookOptions<UsersAdminQuery, UsersAdminQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<UsersAdminQuery, UsersAdminQueryVariables>(UsersAdminDocument, options);
+      }
+export function useUsersAdminLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UsersAdminQuery, UsersAdminQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<UsersAdminQuery, UsersAdminQueryVariables>(UsersAdminDocument, options);
+        }
+export type UsersAdminQueryHookResult = ReturnType<typeof useUsersAdminQuery>;
+export type UsersAdminLazyQueryHookResult = ReturnType<typeof useUsersAdminLazyQuery>;
+export type UsersAdminQueryResult = Apollo.QueryResult<UsersAdminQuery, UsersAdminQueryVariables>;
 export const UserDocument = gql`
     query User {
   users {
