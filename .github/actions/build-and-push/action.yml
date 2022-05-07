@@ -39,7 +39,7 @@ runs:
         context: .
         file: ./.docker/Dockerfile.${{ inputs.package }}
         push: true
-        build-args: ${{ inputs.build_args }}
+        build-args: ${{ inputs.build-args }}
         tags: |
           ghcr.io/${{ github.repository }}/${{ inputs.package }}:latest
           ghcr.io/${{ github.repository }}/${{ inputs.package }}:${{ github.sha }}
