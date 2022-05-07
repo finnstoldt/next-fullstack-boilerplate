@@ -52,11 +52,11 @@ runs:
         file: ./.docker/Dockerfile.${{ inputs.package }}
         push: true
         build-args: |
-          ${{ input.build-arg-1 }}
-          ${{ input.build-arg-2 }}
-          ${{ input.build-arg-3 }}
-          ${{ input.build-arg-4 }}
-          ${{ input.build-arg-5 }}
+          ${{ inputs.build-arg-1 }}
+          ${{ inputs.build-arg-2 }}
+          ${{ inputs.build-arg-3 }}
+          ${{ inputs.build-arg-4 }}
+          ${{ inputs.build-arg-5 }}
         tags: |
           ghcr.io/${{ github.repository }}/${{ inputs.package }}:latest
           ghcr.io/${{ github.repository }}/${{ inputs.package }}:${{ github.sha }}
