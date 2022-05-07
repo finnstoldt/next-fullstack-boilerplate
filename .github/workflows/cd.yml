@@ -13,7 +13,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Build and push Docker image
-        uses: ./.github/actions/build-and-push.yml
+        uses: ./.github/actions/build-and-push
         with:
           package: storefront
           registry_username: ${{ github.actor }}
@@ -29,7 +29,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Build and push Docker image
-        uses: ./.github/actions/build-and-push.yml
+        uses: ./.github/actions/build-and-push
         with:
           package: storefront
           registry_username: ${{ github.actor }}
@@ -42,7 +42,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Build and push Docker image
-        uses: ./.github/actions/build-and-push.yml
+        uses: ./.github/actions/build-and-push
         with:
           package: storefront
           registry_username: ${{ github.actor }}
