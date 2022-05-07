@@ -1,0 +1,63 @@
+name: CD
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  build-and-push-storefront:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Build and push Docker image
+        uses: actions/build-and-push
+        with:
+          package: storefront
+          registry_username: ${{ github.actor }}
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+          build-args: |
+            STOREFRONT_BASE_PATH=${{ secrets.STOREFRONT_BASE_PATH }}
+            API_URL=${{ secrets.API_URL }}
+
+  build-and-push-api:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Build and push Docker image
+        uses: actions/build-and-push
+        with:
+          package: storefront
+          registry_username: ${{ github.actor }}
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+
+  build-and-push-admin:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Build and push Docker image
+        uses: actions/build-and-push
+        with:
+          package: storefront
+          registry_username: ${{ github.actor }}
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+          build-args: |
+            API_URL=${{ secrets.API_URL }}
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    needs: [build-and-push-storefront, build-and-push-api, build-and-push-admin]
+
+    steps:
+      - name: Invoke deployment hook
+        uses: distributhor/workflow-webhook@v2
+        env:
+          webhook_url: ${{ secrets.WEBHOOK_URL }}
+          webhook_secret: ${{ secrets.WEBHOOK_SECRET }}

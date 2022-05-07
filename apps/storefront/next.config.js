@@ -1,4 +1,8 @@
-const withTM = require("next-transpile-modules")(["ui", "logger"]);
+const withTM = require("next-transpile-modules")([
+  "ui",
+  "logger",
+  "graphql-codegen",
+]);
 
 /**
  * @type {import('next').NextConfig}

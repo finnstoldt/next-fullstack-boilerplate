@@ -1,0 +1,24 @@
+FROM node:lts-alpine AS base
+RUN apk update
+WORKDIR /app
+
+FROM base AS pruner
+RUN yarn global add turbo@1.1.2
+COPY . .
+RUN turbo prune --scope=admin --docker
+
+FROM base AS dev-deps
+COPY --from=pruner /app/out/json/ .
+COPY --from=pruner /app/out/yarn.lock ./yarn.lock
+RUN yarn install --frozen-lockfile
+
+FROM base AS builder
+ARG API_URL
+ENV VITE_API_URL ${API_URL}
+COPY --from=dev-deps /app/ .
+COPY --from=pruner /app/out/full/ .
+RUN yarn turbo run build --scope=admin --include-dependencies --no-deps
+RUN find . -name node_modules | xargs rm -rf
+
+FROM nginx:alpine
+COPY --from=builder /app/apps/admin/dist /usr/share/nginx/html

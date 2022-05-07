@@ -6,9 +6,22 @@
       "outputs": ["dist/**", ".next/**", "public/dist/**"],
       "dependsOn": ["^build"]
     },
+    "graphql-codegen#build": {
+      "outputs": ["dist/**"],
+      "dependsOn": ["^build"]
+    },
+    "admin#build": {
+      "outputs": ["dist/**"],
+      "dependsOn": ["^build", "graphql-codegen#build", "$API_URL"]
+    },
     "storefront#build": {
       "outputs": [".next/**"],
-      "dependsOn": ["^build", "$STOREFRONT_BASE_PATH"]
+      "dependsOn": [
+        "^build",
+        "graphql-codegen#build",
+        "$STOREFRONT_BASE_PATH",
+        "$API_URL"
+      ]
     },
     "test": {
       "outputs": ["coverage/**"],

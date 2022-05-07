@@ -27,7 +27,7 @@ app
   .use(json())
   .use(cors())
   .get("/", function (req, res) {
-    res.send("Hello World!");
+    res.send("Hello Worldd!");
   })
   .get("/prisma", async function (req, res) {
     res.send(
