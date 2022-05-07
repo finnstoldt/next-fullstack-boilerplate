@@ -27,10 +27,10 @@ ARG API_URL
 ENV API_URL ${API_URL}
 COPY --from=dev-deps /app/ .
 COPY --from=pruner /app/out/full/ .
-RUN yarn turbo run build --scope=storefront --include-dependencies --no-deps
+RUN yarn turbo run build --scope=storefront --include-dependencies --no-deps --debug
 RUN find . -name node_modules | xargs rm -rf
 
 FROM base AS runner
 COPY --from=prod-deps /app/ .
 COPY --from=builder /app/ .
-CMD yarn workspace storefront dev
+CMD yarn workspace storefront start
