@@ -4,6 +4,27 @@ description: "Builds and pushes turbo packages as Docker images to GitHub contai
 inputs:
   package:
     description: "Name of the package to build and push"
+    required: true
+  registry-username:
+    description: "Username for ghcr.io"
+    required: true
+  registry-password:
+    description: "Password for ghcr.io"
+    required: true
+  build-arg-1:
+    description: "Docker image build argument 1"
+    required: false
+  build-arg-2:
+    description: "Docker image build argument 2"
+    required: false
+  build-arg-3:
+    description: "Docker image build argument 3"
+    required: false
+  build-arg-4:
+    description: "Docker image build argument 4"
+    required: false
+  build-arg-5:
+    description: "Docker image build argument 5"
     required: false
 
 runs:
@@ -31,8 +52,11 @@ runs:
         file: ./.docker/Dockerfile.${{ inputs.package }}
         push: true
         build-args: |
-          STOREFRONT_BASE_PATH=${{ secrets.STOREFRONT_BASE_PATH }}
-          API_URL=${{ secrets.API_URL }}
+          ${{ input.build-arg-1 }}
+          ${{ input.build-arg-2 }}
+          ${{ input.build-arg-3 }}
+          ${{ input.build-arg-4 }}
+          ${{ input.build-arg-5 }}
         tags: |
           ghcr.io/${{ github.repository }}/${{ inputs.package }}:latest
           ghcr.io/${{ github.repository }}/${{ inputs.package }}:${{ github.sha }}
