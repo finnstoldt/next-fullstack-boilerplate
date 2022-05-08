@@ -11,8 +11,8 @@ inputs:
   registry-password:
     description: "Password for ghcr.io"
     required: true
-  build-args:
-    description: "Build arguments"
+  build-arg-1:
+    description: "Docker image build argument 1"
     required: false
 
 runs:
@@ -39,7 +39,7 @@ runs:
         context: .
         file: ./.docker/Dockerfile.${{ inputs.package }}
         push: true
-        build-args: ${{ inputs.build-args }}
+        build-args: ${{ inputs.build-arg-1 }}
         tags: |
           ghcr.io/${{ github.repository }}/${{ inputs.package }}:latest
           ghcr.io/${{ github.repository }}/${{ inputs.package }}:${{ github.sha }}
