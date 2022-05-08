@@ -38,7 +38,7 @@ app
 const httpServer = http.createServer(app);
 
 const typeDefs = loadSchemaSync(
-  path.resolve(__dirname, "./graphql/schema.graphql"),
+  path.resolve(__dirname, "../graphql/schema.graphql"),
   {
     loaders: [new GraphQLFileLoader()],
   }
