@@ -14,6 +14,9 @@ inputs:
   build-arg-1:
     description: "Docker image build argument 1"
     required: false
+  build-arg-2:
+    description: "Docker image build argument 2"
+    required: false
 
 runs:
   using: "composite"
@@ -39,7 +42,9 @@ runs:
         context: .
         file: ./.docker/Dockerfile.${{ inputs.package }}
         push: true
-        build-args: ${{ inputs.build-arg-1 }}
+        build-args: |
+          ${{ inputs.build-arg-1 }}
+          ${{ inputs.build-arg-2 }}
         tags: |
           ghcr.io/${{ github.repository }}/${{ inputs.package }}:latest
           ghcr.io/${{ github.repository }}/${{ inputs.package }}:${{ github.sha }}
