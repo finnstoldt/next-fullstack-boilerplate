@@ -11,11 +11,8 @@ inputs:
   registry-password:
     description: "Password for ghcr.io"
     required: true
-  build-arg-api-url:
-    description: "Build argument API_URL"
-    required: false
-  build-arg-storefront-base-path:
-    description: "Build argument STOREFRONT_BASE_PATH"
+  build-args:
+    description: "Build arguments"
     required: false
 
 runs:
@@ -42,9 +39,7 @@ runs:
         context: .
         file: ./.docker/Dockerfile.${{ inputs.package }}
         push: true
-        build-args: |
-          API_URL=${{ inputs.build-arg-api-url }}
-          STOREFRONT_BASE_PATH=${{ inputs.build-arg-storefront-base-path }}
+        build-args: ${{ inputs.build-args }}
         tags: |
           ghcr.io/${{ github.repository }}/${{ inputs.package }}:latest
           ghcr.io/${{ github.repository }}/${{ inputs.package }}:${{ github.sha }}
