@@ -24,7 +24,7 @@ FROM base AS builder
 ARG STOREFRONT_BASE_PATH
 ENV STOREFRONT_BASE_PATH ${STOREFRONT_BASE_PATH}
 ARG API_URL
-ENV API_URL ${API_URL}
+ENV NEXT_PUBLIC_STOREFRONT_API_URL ${API_URL}
 COPY --from=dev-deps /app/ .
 COPY --from=pruner /app/out/full/ .
 RUN yarn turbo run build --scope=storefront --include-dependencies --no-deps
