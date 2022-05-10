@@ -47,6 +47,7 @@ jobs:
           registry-username: ${{ github.actor }}
           registry-password: ${{ secrets.GITHUB_TOKEN }}
           build-arg-1: API_URL=${{ secrets.API_URL }}
+          build-arg-2: ADMIN_BASE_PATH=${{ secrets.ADMIN_BASE_PATH }}
 
   deploy:
     runs-on: ubuntu-latest
