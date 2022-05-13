@@ -11,6 +11,9 @@ inputs:
   registry-password:
     description: "Password for ghcr.io"
     required: true
+  release-tag:
+    description: "Release tag for image"
+    required: true
   build-arg-1:
     description: "Docker image build argument 1"
     required: false
@@ -47,7 +50,7 @@ runs:
           ${{ inputs.build-arg-2 }}
         tags: |
           ghcr.io/${{ github.repository }}/${{ inputs.package }}:latest
-          ghcr.io/${{ github.repository }}/${{ inputs.package }}:${{ github.sha }}
+          ghcr.io/${{ github.repository }}/${{ inputs.package }}:${{ inputs.release-tag }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
     - # Temp fix
