@@ -15,7 +15,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: tag
-        run: echo ${{ github.event.release.tag_name }}
+        run: echo ${{ github.ref_name }}
       - name: Build and push Docker image
         uses: ./.github/actions/build-and-push
         with:
