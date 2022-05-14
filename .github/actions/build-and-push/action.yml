@@ -12,7 +12,7 @@ inputs:
     description: "Password for ghcr.io"
     required: true
   release-tag:
-    description: "Release tag for image"
+    description: "GitHub ref for image version tag"
     required: true
   build-arg-1:
     description: "Docker image build argument 1"
@@ -24,6 +24,11 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Get the version tag
+      run: |
+        VERSION=${{ inputs.release-tag }}
+        echo "VERSION=${VERSION:1}" >> $GITHUB_ENV
+      shell: bash
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
     - name: Cache Docker layers
@@ -50,7 +55,7 @@ runs:
           ${{ inputs.build-arg-2 }}
         tags: |
           ghcr.io/${{ github.repository }}/${{ inputs.package }}:latest
-          ghcr.io/${{ github.repository }}/${{ inputs.package }}:${{ inputs.release-tag }}
+          ghcr.io/${{ github.repository }}/${{ inputs.package }}:${{ env.VERSION }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
     - # Temp fix

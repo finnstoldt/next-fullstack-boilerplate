@@ -1,8 +1,10 @@
 name: CD
 
 on:
-  release:
-    types: [published]
+  push:
+    tags:
+      - "v*"
+
   workflow_dispatch:
 
 jobs:
@@ -18,7 +20,7 @@ jobs:
           package: storefront
           registry-username: ${{ github.actor }}
           registry-password: ${{ secrets.GITHUB_TOKEN }}
-          release-tag: ${{ github.ref }}
+          release-tag: ${{ github.event.release.tag_name }}
           build-arg-1: STOREFRONT_BASE_PATH=${{ secrets.STOREFRONT_BASE_PATH }}
           build-arg-2: API_URL=${{ secrets.API_URL }}
 
@@ -34,7 +36,7 @@ jobs:
           package: api
           registry-username: ${{ github.actor }}
           registry-password: ${{ secrets.GITHUB_TOKEN }}
-          release-tag: ${{ github.ref }}
+          release-tag: ${{ github.event.release.tag_name }}
 
   build-and-push-admin:
     runs-on: ubuntu-latest
@@ -48,7 +50,7 @@ jobs:
           package: admin
           registry-username: ${{ github.actor }}
           registry-password: ${{ secrets.GITHUB_TOKEN }}
-          release-tag: ${{ github.ref }}
+          release-tag: ${{ github.event.release.tag_name }}
           build-arg-1: API_URL=${{ secrets.API_URL }}
           build-arg-2: ADMIN_BASE_PATH=${{ secrets.ADMIN_BASE_PATH }}
 
