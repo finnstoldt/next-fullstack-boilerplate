@@ -11,9 +11,6 @@ inputs:
   registry-password:
     description: "Password for ghcr.io"
     required: true
-  release-tag:
-    description: "GitHub ref for image version tag"
-    required: true
   build-arg-1:
     description: "Docker image build argument 1"
     required: false
@@ -26,7 +23,7 @@ runs:
   steps:
     - name: Get the version tag
       run: |
-        VERSION=${{ inputs.release-tag }}
+        VERSION=${{ github.ref_name }}
         echo "VERSION=${VERSION:1}" >> $GITHUB_ENV
       shell: bash
     - name: Set up Docker Buildx
